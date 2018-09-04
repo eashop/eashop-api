@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EaShop.Api", "src\EaShop.Api\EaShop.Api.csproj", "{66D25D2D-FCA1-4D38-B2E5-014E1B943152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EaShop.Data", "src\EaShop.Data\EaShop.Data.csproj", "{37FC5325-9940-4E60-8FA2-C06EBC961FE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "General Files", "General Files", "{B2495A81-1E83-4D9F-BA5A-A2713B8DF2ED}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66D25D2D-FCA1-4D38-B2E5-014E1B943152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D25D2D-FCA1-4D38-B2E5-014E1B943152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D25D2D-FCA1-4D38-B2E5-014E1B943152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D25D2D-FCA1-4D38-B2E5-014E1B943152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37FC5325-9940-4E60-8FA2-C06EBC961FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37FC5325-9940-4E60-8FA2-C06EBC961FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37FC5325-9940-4E60-8FA2-C06EBC961FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37FC5325-9940-4E60-8FA2-C06EBC961FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F927374A-8605-4B8F-950B-C2DFAFBC5112}
+	EndGlobalSection
+EndGlobal
