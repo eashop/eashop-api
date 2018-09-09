@@ -5,7 +5,6 @@ namespace EaShop.Data.Models
 {
     public class GoodsInOrder
     {
-
         [Required]
         public int GoodsId { get; set; }
 

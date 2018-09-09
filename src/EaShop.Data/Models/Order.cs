@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace EaShop.Data.Models
@@ -17,5 +18,8 @@ namespace EaShop.Data.Models
 
         [Required]
         public string UserId { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<GoodsInOrder> GoodsInOrder { get; set; }
     }
 }

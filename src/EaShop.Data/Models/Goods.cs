@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
@@ -15,7 +16,7 @@ namespace EaShop.Data.Models
 
         [Column(TypeName = "text")]
         public string Description { get; set; }
-        
+
         [StringLength(255)]
         public string Image { get; set; }
 
@@ -31,5 +32,13 @@ namespace EaShop.Data.Models
 
         [JsonIgnore]
         public Category Category { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<GoodsInOrder> GoodsInOrder { get; set; }
+
+
     }
 }

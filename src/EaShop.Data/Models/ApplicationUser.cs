@@ -8,7 +8,6 @@ namespace EaShop.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-       
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -22,5 +21,8 @@ namespace EaShop.Data.Models
 
         [JsonIgnore]
         public virtual ICollection<Order> Orders { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }
