@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace EaShop.Data.Models
 {
-    class Goods
+    public class Goods
     {
         [Key]
         public int Id { get; set; }
@@ -28,5 +28,8 @@ namespace EaShop.Data.Models
 
         [Required]
         public int CategoryId { get; set; }
+
+        [JsonIgnore]
+        public Category Category { get; set; }
     }
 }

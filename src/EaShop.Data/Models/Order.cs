@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace EaShop.Data.Models
 {
-    class Order
+    public class Order
     {
         [Key]
         public int Id { get; set; }
@@ -11,8 +12,10 @@ namespace EaShop.Data.Models
         [Required]
         public DateTime Date { get; set; }
 
+        [JsonIgnore]
+        public ApplicationUser User { get; set; }
+
         [Required]
         public string UserId { get; set; }
-
     }
 }
