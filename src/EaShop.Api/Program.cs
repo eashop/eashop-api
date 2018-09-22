@@ -19,6 +19,10 @@ namespace EaShop.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    config.AddJsonFile("private_settings.json");
+                });
     }
 }
