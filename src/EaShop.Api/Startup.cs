@@ -49,6 +49,11 @@ namespace EaShop.Api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "EAshop API V1");
+            });
         }
     }
 }
