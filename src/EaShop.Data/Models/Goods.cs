@@ -28,6 +28,9 @@ namespace EaShop.Data.Models
         public string Size { get; set; }
 
         [Required]
+        public bool Active { get; set; }
+
+        [Required]
         public int CategoryId { get; set; }
 
         [JsonIgnore]
