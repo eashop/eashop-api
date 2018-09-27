@@ -23,26 +23,9 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public IEnumerable<OrderRead> GetOrders()
+        public IEnumerable<Order> GetOrders()
         {
-            return _context.Orders
-                .AsNoTracking()
-                .Include(o => o.GoodsInOrder)
-                .ThenInclude(g => g.Goods)
-                .Select(order => new OrderRead
-                {
-                    Id = order.Id,
-                    Date = order.Date,
-                    UserId = order.UserId,
-                    GoodsInOrder = order.GoodsInOrder.Select(g => new GoodsInOrderRead
-                    {
-                        GoodsId = g.GoodsId,
-                        Price = g.Price,
-                        Quantity = g.Quantity,
-                        Name = g.Goods.Name,
-                        Image = g.Goods.Image
-                    })
-                });
+            return _context.Orders;
         }
 
         // GET: api/Orders/5
