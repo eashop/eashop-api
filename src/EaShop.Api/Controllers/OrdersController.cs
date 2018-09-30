@@ -23,10 +23,7 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public IEnumerable<Order> GetOrders()
-        {
-            return _context.Orders;
-        }
+        public IEnumerable<Order> GetOrders() => _context.Orders;
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
@@ -166,9 +163,6 @@ namespace EaShop.Api.Controllers
             return Ok(order);
         }
 
-        private bool OrderExists(int id)
-        {
-            return _context.Orders.Any(e => e.Id == id);
-        }
+        private bool OrderExists(int id) => _context.Orders.Any(e => e.Id == id);
     }
 }

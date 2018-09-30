@@ -1,6 +1,4 @@
-﻿using EaShop.Data.Models;
-
-namespace EaShop.Api.ViewModels
+﻿namespace EaShop.Api.ViewModels
 {
     public class GoodsInOrderRead : GoodsInOrderCreate
     {

@@ -1,4 +1,5 @@
-﻿using EaShop.Data;
+﻿using EaShop.Api.Services;
+using EaShop.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,9 +31,10 @@ namespace EaShop.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title ="EAshop API" });
+                c.SwaggerDoc("v1", new Info { Title = "EAshop API" });
             });
-            
+
+            services.AddSingleton<IFileService, FileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
