@@ -1,10 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
+﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
-
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EaShop.Data.Models
 {

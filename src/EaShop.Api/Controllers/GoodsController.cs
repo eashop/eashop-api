@@ -1,12 +1,10 @@
-﻿using System;
+﻿using EaShop.Data;
+using EaShop.Data.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using EaShop.Data;
-using EaShop.Data.Models;
 
 namespace EaShop.Api.Controllers
 {
@@ -23,10 +21,7 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Goods
         [HttpGet]
-        public IEnumerable<Goods> GetGoods()
-        {
-            return _context.Goods;
-        }
+        public IEnumerable<Goods> GetGoods() => _context.Goods;
 
         // GET: api/Goods/5
         [HttpGet("{id}")]
@@ -118,9 +113,6 @@ namespace EaShop.Api.Controllers
             return Ok(goods);
         }
 
-        private bool GoodsExists(int id)
-        {
-            return _context.Goods.Any(e => e.Id == id);
-        }
+        private bool GoodsExists(int id) => _context.Goods.Any(e => e.Id == id);
     }
 }
