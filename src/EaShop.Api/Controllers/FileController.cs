@@ -1,10 +1,12 @@
 ﻿using EaShop.Api.Services;
+using EaShop.Api.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EaShop.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class FileController : ControllerBase
@@ -17,16 +19,19 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(FileViewModel))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             if (file.Length > 0)
             {
-                return Ok(new { FileName = await _fileService.AddFile(file) });
+                return Ok(new FileViewModel { FileName = await _fileService.AddFile(file) });
             }
             return BadRequest(file);
         }
 
         [HttpPost]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> ConfirmUpload(string name)
         {
             await _fileService.ConfirmUpload(name);
@@ -34,6 +39,10 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(FileStreamResult))]
+        [ProducesResponseType(206)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(416)]
         public async Task<IActionResult> GetFile([FromRoute]string name)
         {
             var file = await _fileService.GetFile(name);
@@ -45,6 +54,8 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> DeleteFile([FromRoute]string name)
         {
             var successfull = await _fileService.DeleteFile(name);

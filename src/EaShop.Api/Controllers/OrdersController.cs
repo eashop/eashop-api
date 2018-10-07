@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EaShop.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
@@ -23,11 +24,14 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Orders
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(Order))]
         public IEnumerable<Order> GetOrders() => _context.Orders;
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        [ProducesResponseType(201, Type = typeof(OrderRead))]
+        [ProducesResponseType(200, Type = typeof(OrderRead))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetOrder([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -66,6 +70,9 @@ namespace EaShop.Api.Controllers
 
         // PUT: api/Orders/5
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutOrder([FromRoute] int id, [FromBody] OrderUpdate order)
         {
             if (!ModelState.IsValid)
@@ -114,6 +121,8 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Orders
         [HttpPost]
+        [ProducesResponseType(201, Type = typeof(OrderCreate))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> PostOrder([FromBody] OrderCreate order)
         {
             if (!ModelState.IsValid)
@@ -144,6 +153,9 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(Order))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteOrder([FromRoute] int id)
         {
             if (!ModelState.IsValid)

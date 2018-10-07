@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EaShop.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class GoodsController : ControllerBase
@@ -21,10 +22,14 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Goods
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(Goods))]
         public IEnumerable<Goods> GetGoods() => _context.Goods;
 
         // GET: api/Goods/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(Goods))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetGoods([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -44,6 +49,9 @@ namespace EaShop.Api.Controllers
 
         // PUT: api/Goods/5
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutGoods([FromRoute] int id, [FromBody] Goods goods)
         {
             if (!ModelState.IsValid)
@@ -79,6 +87,8 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Goods
         [HttpPost]
+        [ProducesResponseType(201, Type = typeof(Goods))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> PostGoods([FromBody] Goods goods)
         {
             if (!ModelState.IsValid)
@@ -94,6 +104,9 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Goods/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(Goods))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteGoods([FromRoute] int id)
         {
             if (!ModelState.IsValid)
