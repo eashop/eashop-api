@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EaShop.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -21,10 +22,14 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Categories
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(Category))]
         public IEnumerable<Category> GetCategories() => _context.Categories;
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(Category))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetCategory([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -44,6 +49,9 @@ namespace EaShop.Api.Controllers
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
@@ -79,6 +87,8 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Categories
         [HttpPost]
+        [ProducesResponseType(201, Type = typeof(Category))]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
         {
             if (!ModelState.IsValid)
@@ -94,6 +104,9 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(200, Type = typeof(Category))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
             if (!ModelState.IsValid)

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace EaShop.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -23,7 +24,10 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost("login")]
+
         [AllowAnonymous]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -33,10 +37,8 @@ namespace EaShop.Api.Controllers
                 {
                     return BadRequest();
                 }
-                var result =
-                        await
-                            _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe,
-                                lockoutOnFailure: false);
+                var result = await _signInManager
+                    .PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     return Ok();
@@ -52,6 +54,8 @@ namespace EaShop.Api.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -68,8 +72,7 @@ namespace EaShop.Api.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.PasswordSignInAsync(user, model.Password,
-                        true, false);
+                    await _signInManager.PasswordSignInAsync(user, model.Password, true, false);
                     return Ok();
                 }
             }
@@ -77,6 +80,7 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost("logout")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> LogOout()
         {
             await _signInManager.SignOutAsync();
