@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Linq;
 
 namespace EaShop.Api
 {
@@ -33,7 +34,8 @@ namespace EaShop.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "EAshop API" });
+                c.SwaggerDoc("v1", new Info { Title = "EAshop API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
 
             services.AddSingleton<IFileService, FileService>();
