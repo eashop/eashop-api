@@ -1,4 +1,5 @@
-﻿using EaShop.Data;
+﻿using EaShop.Api.ViewModels;
+using EaShop.Data;
 using EaShop.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,34 @@ namespace EaShop.Api.Controllers
 
         // GET: api/Goods
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(Goods))]
-        public IEnumerable<Goods> GetGoods() => _context.Goods;
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Goods>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetGoods([FromQuery] GoodsPagination pagination)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (pagination.PageSize == null || pagination.PageNumber == null)
+            {
+                return Ok(_context.Goods);
+            }
+            else
+            {
+                try
+                {
+                    var result = _context.Goods
+                        .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
+                        .Take((int)pagination.PageSize);
+                    return Ok(result);
+                }
+                catch
+                {
+                    return BadRequest(pagination);
+                }
+            }
+        }
 
         // GET: api/Goods/5
         [HttpGet("{id}")]
