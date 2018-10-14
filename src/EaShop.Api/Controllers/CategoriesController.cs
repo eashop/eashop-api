@@ -1,4 +1,5 @@
-﻿using EaShop.Data;
+﻿using EaShop.Api.ViewModels;
+using EaShop.Data;
 using EaShop.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,33 @@ namespace EaShop.Api.Controllers
             }
 
             return Ok(category);
+        }
+
+        // GET: api/Categories/5
+        [HttpGet("{id}/goods")]
+        [ProducesResponseType(200, Type = typeof(Goods))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetCategoryGoods([FromRoute] int id, [FromQuery] Pagination pagination)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            IQueryable<Goods> result;
+            if (pagination.PageSize == null || pagination.PageNumber == null)
+            {
+                result = _context.Goods
+                    .Where(g => g.CategoryId == id);
+            }
+            else
+            {
+                result = _context.Goods
+                    .Where(g => g.CategoryId == id)
+                    .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
+                        .Take((int)pagination.PageSize);
+            }            
+            return Ok(result);
         }
 
         // PUT: api/Categories/5

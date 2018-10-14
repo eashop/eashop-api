@@ -2,7 +2,7 @@
 
 namespace EaShop.Api.ViewModels
 {
-    public class GoodsPagination
+    public class Pagination
     {
         [Range(0, 100)]
         public int? PageSize { get; set; }
