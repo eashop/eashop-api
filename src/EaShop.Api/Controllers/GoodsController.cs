@@ -25,7 +25,7 @@ namespace EaShop.Api.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Goods>))]
         [ProducesResponseType(400)]
-        public IActionResult GetGoods([FromQuery] GoodsPagination pagination)
+        public IActionResult GetGoods([FromQuery] Pagination pagination)
         {
             if (!ModelState.IsValid)
             {
