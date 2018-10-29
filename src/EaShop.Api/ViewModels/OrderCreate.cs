@@ -9,6 +9,8 @@ namespace EaShop.Api.ViewModels
 
         public string UserId { get; set; }
 
+        public string ShipmentMethod { get; set; }
+
         public virtual IEnumerable<GoodsInOrderCreate> GoodsInOrder { get; set; }
     }
 }

@@ -55,6 +55,7 @@ namespace EaShop.Api.Controllers
                 Id = order.Id,
                 Date = order.Date,
                 UserId = order.UserId,
+                ShipmentMethod = order.ShipmentMethod,
                 GoodsInOrder = order.GoodsInOrder.Select(g => new GoodsInOrderRead
                 {
                     GoodsId = g.GoodsId,
@@ -90,6 +91,7 @@ namespace EaShop.Api.Controllers
                 Id = order.Id,
                 Date = order.Date,
                 UserId = order.UserId,
+                ShipmentMethod = order.ShipmentMethod,
                 GoodsInOrder = order.GoodsInOrder.Select(g => new GoodsInOrder
                 {
                     GoodsId = g.GoodsId,
@@ -134,6 +136,7 @@ namespace EaShop.Api.Controllers
             {
                 Date = order.Date,
                 UserId = order.UserId,
+                ShipmentMethod = order.ShipmentMethod,
                 GoodsInOrder = new Collection<GoodsInOrder>(
                     order.GoodsInOrder.Select(g => new GoodsInOrder
                     {

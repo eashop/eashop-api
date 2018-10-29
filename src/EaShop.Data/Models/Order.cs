@@ -19,6 +19,9 @@ namespace EaShop.Data.Models
         [Required]
         public string UserId { get; set; }
 
+        [Required]
+        public string ShipmentMethod { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<GoodsInOrder> GoodsInOrder { get; set; }
     }
