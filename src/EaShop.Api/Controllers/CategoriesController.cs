@@ -1,6 +1,7 @@
 ﻿using EaShop.Api.ViewModels;
 using EaShop.Data;
 using EaShop.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -77,6 +78,7 @@ namespace EaShop.Api.Controllers
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -115,6 +117,7 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Categories
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(201, Type = typeof(Category))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
@@ -132,6 +135,7 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Category))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
