@@ -41,13 +41,17 @@ namespace EaShop.Api
                     var user = new ApplicationUser
                     {
                         UserName = "test",
-                        Email = "test@mail.com"
+                        Email = "test@mail.com",
+                        Name = "Test",
+                        Surname = "Test"
                     };
                     await userManager.CreateAsync(user, "Password12$");
                     var admin = new ApplicationUser
                     {
                         UserName = "admin",
-                        Email = "test@mail.com"
+                        Email = "test@mail.com",
+                        Name = "Admin",
+                        Surname = "Admin"
                     };
                     await userManager.CreateAsync(admin, "Password12$");
                 }
