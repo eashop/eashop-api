@@ -101,23 +101,12 @@ namespace EaShop.Api.Controllers
                 return BadRequest();
             }
 
-            await CreateAdminRole();
-
             var result = await _userManager.AddToRoleAsync(user, "Admin");
             if (result.Succeeded)
             {
                 return Ok();
             }
             return BadRequest(result.Errors);
-        }
-
-        private async Task CreateAdminRole()
-        {
-            var exists = await _roleManager.RoleExistsAsync("Admin");
-            if (!exists)
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
-            }
         }
     }
 }
