@@ -44,7 +44,7 @@ namespace EaShop.Api.Controllers
                     .PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return Ok(_userManager.IsInRoleAsync(user, "Admin"));
+                    return Ok(await _userManager.IsInRoleAsync(user, "Admin"));
                 }
                 if (result.RequiresTwoFactor)
                 {
