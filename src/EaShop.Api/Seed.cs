@@ -49,7 +49,7 @@ namespace EaShop.Api
                     var admin = new ApplicationUser
                     {
                         UserName = "admin",
-                        Email = "test@mail.com",
+                        Email = "admin@mail.com",
                         Name = "Admin",
                         Surname = "Admin"
                     };
