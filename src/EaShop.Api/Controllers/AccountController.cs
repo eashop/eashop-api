@@ -15,18 +15,21 @@ namespace EaShop.Api.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("login")]
 
         [AllowAnonymous]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(200, Type = typeof(bool))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -41,7 +44,7 @@ namespace EaShop.Api.Controllers
                     .PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return Ok();
+                    return Ok(_userManager.IsInRoleAsync(user, "Admin"));
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -81,10 +84,29 @@ namespace EaShop.Api.Controllers
 
         [HttpPost("logout")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> LogOout()
+        public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             return Ok();
+        }
+
+        [HttpPost("set-admin")]
+        [ProducesResponseType(200)]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SetAdmin([FromBody] string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            var result = await _userManager.AddToRoleAsync(user, "Admin");
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Errors);
         }
     }
 }

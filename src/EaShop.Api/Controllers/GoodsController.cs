@@ -1,6 +1,7 @@
 ﻿using EaShop.Api.ViewModels;
 using EaShop.Data;
 using EaShop.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -74,8 +75,55 @@ namespace EaShop.Api.Controllers
             return Ok(goods);
         }
 
+        // GET: api/Goods/search
+        [HttpPost("search")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Goods>))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult SearchGoods([FromBody] SearchWithPagination search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (string.IsNullOrWhiteSpace(search.Name))
+            {
+                return BadRequest("Name is invalid");
+            }
+
+            var goods = _context.Goods
+                .Where(g => g.Name.ToLowerInvariant().Contains(search.Name.ToLowerInvariant()));
+
+            if (goods == null)
+            {
+                return NotFound();
+            }
+
+            if (search.PageSize == null || search.PageNumber == null)
+            {
+                return Ok(goods);
+            }
+            else
+            {
+                try
+                {
+                    var result = goods
+                        .Skip((int)search.PageSize * ((int)search.PageNumber - 1))
+                        .Take((int)search.PageSize);
+                    return Ok(result);
+                }
+                catch
+                {
+                    return BadRequest(search);
+                }
+            }
+
+        }
+
         // PUT: api/Goods/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -114,6 +162,7 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Goods
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(201, Type = typeof(Goods))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PostGoods([FromBody] Goods goods)
@@ -131,6 +180,7 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Goods/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Goods))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
