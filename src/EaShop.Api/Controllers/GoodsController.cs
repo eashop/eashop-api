@@ -123,7 +123,7 @@ namespace EaShop.Api.Controllers
 
         // PUT: api/Goods/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -162,7 +162,7 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Goods
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(201, Type = typeof(Goods))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PostGoods([FromBody] Goods goods)
@@ -180,7 +180,7 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Goods/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Goods))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
