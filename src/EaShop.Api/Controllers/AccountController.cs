@@ -92,7 +92,7 @@ namespace EaShop.Api.Controllers
 
         [HttpPost("set-admin")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> SetAdmin([FromBody] string id)
         {
             var user = await _userManager.FindByIdAsync(id);

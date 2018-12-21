@@ -71,14 +71,14 @@ namespace EaShop.Api.Controllers
                 result = _context.Goods
                     .Where(g => g.CategoryId == id)
                     .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
-                        .Take((int)pagination.PageSize);
+                    .Take((int)pagination.PageSize);
             }            
             return Ok(result);
         }
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
@@ -117,7 +117,7 @@ namespace EaShop.Api.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(201, Type = typeof(Category))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
@@ -135,7 +135,7 @@ namespace EaShop.Api.Controllers
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(Category))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
