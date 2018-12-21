@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EaShop.Api.ViewModels
+﻿namespace EaShop.Api.ViewModels
 {
     public class SearchWithPagination : Pagination
     {
         public string Name { get; set; }
+
+        public int? CategoryId { get; set; }
     }
 }

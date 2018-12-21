@@ -1,7 +1,6 @@
 ﻿using EaShop.Api.ViewModels;
 using EaShop.Data;
 using EaShop.Data.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -92,8 +91,13 @@ namespace EaShop.Api.Controllers
                 return BadRequest("Name is invalid");
             }
 
-            var goods = _context.Goods
+            IQueryable<Goods> goods = _context.Goods
                 .Where(g => g.Name.ToLowerInvariant().Contains(search.Name.ToLowerInvariant()));
+
+            if (search.CategoryId != null)
+            {
+                goods = goods.Where(g => g.CategoryId == search.CategoryId);
+            }
 
             if (goods == null)
             {
@@ -108,7 +112,7 @@ namespace EaShop.Api.Controllers
             {
                 try
                 {
-                    var result = goods
+                    IQueryable<Goods> result = goods
                         .Skip((int)search.PageSize * ((int)search.PageNumber - 1))
                         .Take((int)search.PageSize);
                     return Ok(result);

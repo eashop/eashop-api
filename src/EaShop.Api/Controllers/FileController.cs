@@ -1,6 +1,5 @@
 ﻿using EaShop.Api.Services;
 using EaShop.Api.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,7 +19,7 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200, Type = typeof(FileViewModel))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> UploadFile(IFormFile file)
@@ -33,7 +32,7 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200)]
         public async Task<IActionResult> ConfirmUpload(string name)
         {
@@ -57,7 +56,7 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> DeleteFile([FromRoute]string name)
