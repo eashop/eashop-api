@@ -54,7 +54,7 @@ namespace EaShop.Api.Controllers
         [ProducesResponseType(200, Type = typeof(Goods))]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetCategoryGoods([FromRoute] int id, [FromQuery] Pagination pagination)
+        public IActionResult GetCategoryGoods([FromRoute] int id, [FromQuery] Pagination pagination)
         {
             if (!ModelState.IsValid)
             {
@@ -75,89 +75,5 @@ namespace EaShop.Api.Controllers
             }            
             return Ok(result);
         }
-
-        // PUT: api/Categories/5
-        [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != category.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Categories
-        [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        [ProducesResponseType(201, Type = typeof(Category))]
-        [ProducesResponseType(400)]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
-        }
-
-        // DELETE: api/Categories/5
-        [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
-        [ProducesResponseType(200, Type = typeof(Category))]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
-
-            return Ok(category);
-        }
-
-        private bool CategoryExists(int id) => _context.Categories.Any(e => e.Id == id);
     }
 }
