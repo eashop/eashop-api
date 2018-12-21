@@ -31,21 +31,12 @@ namespace EaShop.Api.Controllers
             return BadRequest(file);
         }
 
-        [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> ConfirmUpload(string name)
-        {
-            await _fileService.ConfirmUpload(name);
-            return Ok();
-        }
-
-        [HttpGet("{id}")]
+        [HttpGet("{name}")]
         [ProducesResponseType(200, Type = typeof(FileStreamResult))]
         [ProducesResponseType(206)]
         [ProducesResponseType(400)]
         [ProducesResponseType(416)]
-        public async Task<IActionResult> GetFile([FromRoute]string name)
+        public async Task<IActionResult> GetFile([FromRoute] string name)
         {
             var file = await _fileService.GetFile(name);
             if (file == null)
@@ -55,7 +46,7 @@ namespace EaShop.Api.Controllers
             return File(file, "application/octet-stream");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{name}")]
         //[Authorize(Roles = "Admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
