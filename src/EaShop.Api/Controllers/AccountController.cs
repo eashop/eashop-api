@@ -27,9 +27,8 @@ namespace EaShop.Api.Controllers
         }
 
         [HttpPost("login")]
-
         [AllowAnonymous]
-        [ProducesResponseType(200, Type = typeof(bool))]
+        [ProducesResponseType(200, Type = typeof(UserRolesViewModel))]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -44,7 +43,12 @@ namespace EaShop.Api.Controllers
                     .PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return Ok(await _userManager.IsInRoleAsync(user, "Admin"));
+                    var userRoles = new UserRolesViewModel
+                    {
+                        UserId = user.Id,
+                        Roles = await _userManager.GetRolesAsync(user)
+                    };
+                    return Ok(userRoles);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -92,7 +96,7 @@ namespace EaShop.Api.Controllers
 
         [HttpPost("set-admin")]
         [ProducesResponseType(200)]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> SetAdmin([FromBody] string id)
         {
             var user = await _userManager.FindByIdAsync(id);
