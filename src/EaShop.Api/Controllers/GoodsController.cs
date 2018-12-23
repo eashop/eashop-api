@@ -34,7 +34,7 @@ namespace EaShop.Api.Controllers
 
             if (pagination.PageSize == null || pagination.PageNumber == null)
             {
-                return Ok(_context.Goods);
+                return Ok(_context.Goods.OrderByDescending(g => g.Id));
             }
             else
             {
@@ -42,7 +42,8 @@ namespace EaShop.Api.Controllers
                 {
                     var result = _context.Goods
                         .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
-                        .Take((int)pagination.PageSize);
+                        .Take((int)pagination.PageSize)
+                        .OrderByDescending(g => g.Id);
                     return Ok(result);
                 }
                 catch
@@ -106,7 +107,7 @@ namespace EaShop.Api.Controllers
 
             if (search.PageSize == null || search.PageNumber == null)
             {
-                return Ok(goods);
+                return Ok(goods.OrderByDescending(g => g.Id));
             }
             else
             {
@@ -114,7 +115,8 @@ namespace EaShop.Api.Controllers
                 {
                     IQueryable<Goods> result = goods
                         .Skip((int)search.PageSize * ((int)search.PageNumber - 1))
-                        .Take((int)search.PageSize);
+                        .Take((int)search.PageSize)
+                        .OrderByDescending(g => g.Id);
                     return Ok(result);
                 }
                 catch
