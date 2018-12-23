@@ -34,16 +34,16 @@ namespace EaShop.Api.Controllers
 
             if (pagination.PageSize == null || pagination.PageNumber == null)
             {
-                return Ok(_context.Goods.OrderByDescending(g => g.Id));
+                return Ok(_context.Goods.OrderBy(g => g.Id));
             }
             else
             {
                 try
                 {
                     var result = _context.Goods
+                        .OrderBy(g => g.Id)
                         .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
-                        .Take((int)pagination.PageSize)
-                        .OrderByDescending(g => g.Id);
+                        .Take((int)pagination.PageSize);
                     return Ok(result);
                 }
                 catch
@@ -92,7 +92,7 @@ namespace EaShop.Api.Controllers
                 return BadRequest("Name is invalid");
             }
 
-            IQueryable<Goods> goods = _context.Goods
+            var goods = _context.Goods
                 .Where(g => g.Name.ToLowerInvariant().Contains(search.Name.ToLowerInvariant()));
 
             if (search.CategoryId != null)
@@ -107,16 +107,16 @@ namespace EaShop.Api.Controllers
 
             if (search.PageSize == null || search.PageNumber == null)
             {
-                return Ok(goods.OrderByDescending(g => g.Id));
+                return Ok(goods.OrderBy(g => g.Id));
             }
             else
             {
                 try
                 {
-                    IQueryable<Goods> result = goods
+                    var result = goods
+                        .OrderBy(g => g.Id)
                         .Skip((int)search.PageSize * ((int)search.PageNumber - 1))
-                        .Take((int)search.PageSize)
-                        .OrderByDescending(g => g.Id);
+                        .Take((int)search.PageSize);
                     return Ok(result);
                 }
                 catch
@@ -124,7 +124,6 @@ namespace EaShop.Api.Controllers
                     return BadRequest(search);
                 }
             }
-
         }
 
         // PUT: api/Goods/5
