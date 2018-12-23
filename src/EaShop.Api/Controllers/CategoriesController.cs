@@ -25,7 +25,7 @@ namespace EaShop.Api.Controllers
         // GET: api/Categories
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(Category))]
-        public IEnumerable<Category> GetCategories() => _context.Categories;
+        public IEnumerable<Category> GetCategories() => _context.Categories.OrderByDescending(c => c.Id);
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
@@ -49,7 +49,7 @@ namespace EaShop.Api.Controllers
             return Ok(category);
         }
 
-        // GET: api/Categories/5
+        // GET: api/Categories/5/goods
         [HttpGet("{id}/goods")]
         [ProducesResponseType(200, Type = typeof(Goods))]
         [ProducesResponseType(400)]
@@ -64,14 +64,16 @@ namespace EaShop.Api.Controllers
             if (pagination.PageSize == null || pagination.PageNumber == null)
             {
                 result = _context.Goods
-                    .Where(g => g.CategoryId == id);
+                    .Where(g => g.CategoryId == id)
+                    .OrderByDescending(g => g.Id);
             }
             else
             {
                 result = _context.Goods
                     .Where(g => g.CategoryId == id)
                     .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
-                    .Take((int)pagination.PageSize);
+                    .Take((int)pagination.PageSize)
+                    .OrderByDescending(g => g.Id);
             }            
             return Ok(result);
         }
