@@ -1,9 +1,7 @@
 ﻿using EaShop.Api.ViewModels;
 using EaShop.Data;
 using EaShop.Data.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +23,7 @@ namespace EaShop.Api.Controllers
         // GET: api/Categories
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(Category))]
-        public IEnumerable<Category> GetCategories() => _context.Categories.OrderByDescending(c => c.Id);
+        public IEnumerable<Category> GetCategories() => _context.Categories.OrderBy(c => c.Id);
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
@@ -65,16 +63,16 @@ namespace EaShop.Api.Controllers
             {
                 result = _context.Goods
                     .Where(g => g.CategoryId == id)
-                    .OrderByDescending(g => g.Id);
+                    .OrderBy(g => g.Id);
             }
             else
             {
                 result = _context.Goods
                     .Where(g => g.CategoryId == id)
+                    .OrderBy(g => g.Id)
                     .Skip((int)pagination.PageSize * ((int)pagination.PageNumber - 1))
-                    .Take((int)pagination.PageSize)
-                    .OrderByDescending(g => g.Id);
-            }            
+                    .Take((int)pagination.PageSize);
+            }
             return Ok(result);
         }
     }

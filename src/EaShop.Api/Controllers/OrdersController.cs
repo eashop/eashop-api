@@ -25,7 +25,7 @@ namespace EaShop.Api.Controllers
         // GET: api/Orders
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(Order))]
-        public IEnumerable<Order> GetOrders() => _context.Orders.OrderByDescending(o => o.Id);
+        public IEnumerable<Order> GetOrders() => _context.Orders.OrderBy(o => o.Id);
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
@@ -64,7 +64,7 @@ namespace EaShop.Api.Controllers
                     Name = g.Goods.Name,
                     Image = g.Goods.Image
                 })
-                .OrderByDescending(g => g.GoodsId)
+                .OrderBy(g => g.GoodsId)
             };
 
             return Ok(result);
